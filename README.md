@@ -31,5 +31,5 @@ var fileLoader = function(){
 	    });
 	   /*开始预加载*/
 	    loader.start();
-      }
+}
 ```
