@@ -33,3 +33,123 @@ var fileLoader = function(){
 	    loader.start();
 }
 ```
+##jstween
+```javascript
+         var gotoFuns = {
+		gotoIndex: function(){
+		        /*主页面显示动画*/
+			JT.fromTo(main.spMain, 4, {
+				z: -2200
+			}, {
+				z: -150,
+				ease: JT.Quad.Out,
+				onUpdate: function() {
+					this.target.updateT().updateV()
+				},onEnd:function(){
+					touchEvent.canMove = false
+					touchEvent.actiondh();
+					JT.to($("#bg"), 1, {
+							opacity: 1
+						});
+					skyLogo.visibility({
+						visible: 1
+					}).updateV();
+					$(".govr").show();
+				}
+			});
+		        /*主页面背景显示动画*/
+			JT.fromTo(pano.panoBg, 4, {
+				rotationY: -720
+			}, {
+				rotationY: 25,
+				ease: JT.Quad.Out,
+				onUpdate: function() {
+					this.target.updateT().updateV()
+				},onEnd:function(){
+				
+				}
+			});
+			for (var A = 0, B = pano.panoBg.children.length; B > A; A++){
+				JT.from(pano.panoBg.children[A], 0.5, {
+					x: 0,
+					z: 0,
+					scaleX: 0,
+					scaleY: 0,
+					delay: .05 * A,
+					ease: JT.Quad.Out,
+					onUpdate: function() {
+						this.target.updateT()
+					},
+					onStart: function() {
+						this.target.visibility({
+							alpha: 1
+						}).updateV()
+					}
+					
+				});
+			} 
+			/*主页面第二层元素显示动画*/
+			JT.fromTo(panoItem.items, 4, {
+				rotationY: -720
+			}, {
+				rotationY: 25,
+				delay: Math.random() + 1,
+				ease: JT.Quad.Out,
+				onUpdate: function() {
+					this.target.updateT().updateV()
+				}
+			})
+			for (var g = 0, C = panoItem.items.children.length; C > g; g++){
+				JT.from(panoItem.items.children[g], 2, {
+					x: 0,
+					z: 0,
+					scaleX: .01,
+					scaleY: .01,
+					scaleZ: .01,
+					delay: Math.random() + 2,
+					ease: JT.Quad.Out,
+					onUpdate: function() {
+						this.target.updateT()
+					},
+					onStart: function() {
+						this.target.visibility({
+							alpha: this.target.__name.split('-')[1]>1?0:1
+						}).updateV()
+					},onEnd:function(){
+						var panoItemName = this.target.__name.split('-')[0],
+							index = this.target.__name.split('-')[1]-0;
+						if(index === 1){
+							new animateList({
+								list: $('[data-name^="'+panoItemName+'"]'),
+								interval: 500,
+								index: 0,
+								name:'loadingAni',
+								intervalT: 1,
+								filter: '[data-name^="'+panoItemName+'"]'
+							})
+						}
+					}
+				});
+			}
+		}
+	}
+```
+
+##css3d
+```javascript
+       
+```
+##orienter
+```javascript
+        //重力感应
+	var o2 = new Orienter();
+	o2.onOrient = function (t) {
+		touchEvent.d.lon = -t.lon,
+		touchEvent.d.lat = t.lat
+		if(touchEvent.canMove){
+			touchEvent.f.lat = -touchEvent.d.lat, 
+			touchEvent.f.lon = -touchEvent.d.lon
+		}
+	};
+	o2.init();
+```
