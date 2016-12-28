@@ -10,9 +10,9 @@
 
 ##pxloader-images
 
-
-    var fileLoader = function(){
-	    var loader = new window.PxLoader();
+```javascript
+var fileLoader = function(){
+	var loader = new window.PxLoader();
 	    /*声明资源文件列表*/
 	    var fileList = [
 	             ...
@@ -32,3 +32,4 @@
 	   /*开始预加载*/
 	    loader.start();
       }
+```
